@@ -82,13 +82,17 @@ class Api implements BaseServices {
       required String passwordConfirmation}) async {
     var result = false;
     try {
-      final http.Response response = await http.post(Uri.parse('$domain/login'),
-          headers: _Headers().getHeaderUnauth(),
-          body: {
+      final http.Response response = await http.post(
+        Uri.parse('$domain/register'),
+        body: convert.jsonEncode(
+          <String, dynamic>{
             'email': email,
             'password': password,
             'password_confirmation': passwordConfirmation
-          });
+          },
+        ),
+        headers: _Headers().getHeaderUnauth(),
+      );
       final dynamic body = convert.jsonDecode(response.body);
       if (response.statusCode == 200) {
         result = true;
