@@ -1,4 +1,5 @@
 import 'dart:convert' as convert;
+import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
@@ -45,15 +46,18 @@ class Api implements BaseServices {
   }
 
   @override
-  Future<bool> login({email = String, password = String}) async {
+  Future<bool> login({
+    required String email,
+    required String password,
+  }) async {
     var result = false;
     try {
       final http.Response response = await http.post(Uri.parse('$domain/login'),
           headers: _Headers().getHeaderUnauth(),
-          body: {
+          body: jsonEncode({
             'email': email,
             'password': password,
-          });
+          }));
       final dynamic body = convert.jsonDecode(response.body);
       if (response.statusCode == 200) {
         result = true;
@@ -70,9 +74,9 @@ class Api implements BaseServices {
 
   @override
   Future<bool> register(
-      {email = String,
-      password = String,
-      passwordConfirmation = String}) async {
+      {required String email,
+      required String password,
+      required String passwordConfirmation}) async {
     var result = false;
     try {
       final http.Response response = await http.post(Uri.parse('$domain/login'),

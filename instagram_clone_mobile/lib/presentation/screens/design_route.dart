@@ -14,7 +14,7 @@ class DesignRoute extends StatelessWidget {
       appBar: const CustomAppBar(
           appBarType: AppBarType.withLeadingAndTitle, title: 'Design Route'),
       body: Container(
-        color: AppColors.primary,
+        color: AppColors.light,
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: ListView(
           children: [

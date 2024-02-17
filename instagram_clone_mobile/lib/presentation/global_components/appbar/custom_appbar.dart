@@ -52,7 +52,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       case AppBarType.withLeading:
         return AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: widget.color ?? AppColors.primary,
+          backgroundColor: widget.color ?? AppColors.lightGrey,
           elevation: 0,
           leading: AppBarBackIconWidget(
             onTap: widget.leadingIconFunction,
@@ -67,16 +67,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
       case AppBarType.withLeadingAndTitle:
         return AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: widget.color ?? AppColors.secondary,
+          backgroundColor: widget.color ?? AppColors.light,
           elevation: 0,
           leading: AppBarBackIconWidget(
-            color: widget.iconColor ?? AppColors.light,
+            color: widget.iconColor ?? AppColors.primary,
           ),
           centerTitle: widget.centerTitle,
           title: CustomText(
             widget.title ?? '',
             style: AppTextStyle.h4(
-              color: widget.textColor ?? AppColors.light,
+              color: widget.textColor ?? AppColors.primary,
             ),
           ),
           flexibleSpace: Container(
@@ -88,7 +88,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       case AppBarType.withTitle:
         return AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: widget.color ?? AppColors.primary,
+          backgroundColor: widget.color ?? AppColors.lightGrey,
           elevation: 0,
           centerTitle: widget.centerTitle,
           title: CustomText(
@@ -107,7 +107,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       case AppBarType.withLeadingTitleAndTrailing:
         return AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: widget.color ?? AppColors.primary,
+          backgroundColor: widget.color ?? AppColors.lightGrey,
           elevation: 0,
           leading: AppBarBackIconWidget(
             color: widget.iconColor ?? AppColors.light,
@@ -137,7 +137,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       case AppBarType.withTitleAndTrailing:
         return AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: widget.color ?? AppColors.primary,
+          backgroundColor: widget.color ?? AppColors.lightGrey,
           elevation: 0,
           title: Row(
             children: <Widget>[

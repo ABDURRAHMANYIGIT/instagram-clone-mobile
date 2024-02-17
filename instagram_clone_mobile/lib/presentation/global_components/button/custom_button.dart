@@ -60,7 +60,7 @@ class CustomButton extends StatelessWidget {
             ? BorderRadius.circular(borderRadius!)
             : BorderRadius.circular(0),
         color: gradient == null
-            ? (isDisabled ? disabledColor : color ?? AppColors.yellow)
+            ? (isDisabled ? disabledColor : color ?? AppColors.blue)
             : isDisabled
                 ? disabledColor
                 : null,

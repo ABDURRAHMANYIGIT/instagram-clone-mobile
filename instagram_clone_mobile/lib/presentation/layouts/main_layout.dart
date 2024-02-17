@@ -33,7 +33,7 @@ class MainLayout extends StatelessWidget {
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       bottomSheet: bottomSheet,
       extendBody: true,
-      backgroundColor: backgroundColor ?? AppColors.secondary,
+      backgroundColor: backgroundColor ?? AppColors.light,
       bottomNavigationBar: bottomNavigationBar,
       appBar: appBar,
       floatingActionButton: floatingActionButton,

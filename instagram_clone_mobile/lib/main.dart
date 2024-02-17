@@ -50,7 +50,7 @@ class MyApplication extends StatelessWidget {
         navigatorKey: Get.key,
         initialRoute: AppRouter.designRoute,
         // supportedLocales: allTranslations.supportedLocales(),
-        color: AppColors.primary,
+        color: AppColors.light,
         debugShowCheckedModeBanner: false,
         locale: Get.deviceLocale,
         fallbackLocale: const Locale('en'),
