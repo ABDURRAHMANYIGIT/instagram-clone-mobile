@@ -25,7 +25,7 @@ class Api implements BaseServices {
     if (token != null) {
       try {
         final http.Response response = await http.get(
-          Uri.parse('$domain/user/get-user'),
+          Uri.parse('$domain/user'),
           headers: _Headers().getHeaderWithAuthToken(token),
         );
         final dynamic body = convert.jsonDecode(response.body);
@@ -42,5 +42,57 @@ class Api implements BaseServices {
       }
     }
     return null;
+  }
+
+  @override
+  Future<bool> login({email = String, password = String}) async {
+    var result = false;
+    try {
+      final http.Response response = await http.post(Uri.parse('$domain/login'),
+          headers: _Headers().getHeaderUnauth(),
+          body: {
+            'email': email,
+            'password': password,
+          });
+      final dynamic body = convert.jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        result = true;
+        return SharedPreference().setToken('Bearer ${body['token']}');
+      } else {
+        await SharedPreference().setToken(null);
+        await SharedPreference().setUserId(null);
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return result;
+  }
+
+  @override
+  Future<bool> register(
+      {email = String,
+      password = String,
+      passwordConfirmation = String}) async {
+    var result = false;
+    try {
+      final http.Response response = await http.post(Uri.parse('$domain/login'),
+          headers: _Headers().getHeaderUnauth(),
+          body: {
+            'email': email,
+            'password': password,
+            'password_confirmation': passwordConfirmation
+          });
+      final dynamic body = convert.jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        result = true;
+        return SharedPreference().setToken('Bearer ${body['token']}');
+      } else {
+        await SharedPreference().setToken(null);
+        await SharedPreference().setUserId(null);
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return result;
   }
 }

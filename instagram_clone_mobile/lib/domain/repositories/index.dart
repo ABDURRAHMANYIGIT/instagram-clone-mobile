@@ -17,4 +17,14 @@ class DatabaseServices implements BaseServices {
   Future<UserObject?> getUser() {
     return api.getUser();
   }
+
+  @override
+  Future<bool> login() {
+    return api.login();
+  }
+
+  @override
+  Future<bool> register() {
+    return api.register();
+  }
 }

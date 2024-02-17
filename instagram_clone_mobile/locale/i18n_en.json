@@ -1,0 +1,17 @@
+{
+    "exampleSentence": "Example Translate",
+    "support": "Support",
+    "supportFeedback": "Support / Feedback",
+    "supportContent": "Please write your message below. How can we help you?",
+    "supportFeedbackContent": "Thanks for contacting us. We will contact you as soon as possible.",
+    "deviceInfo": "Please do not delete your device information so that we can better support you.",
+    "thanksForContactingUs": "Thanks for contacting us. We will contact you as soon as possible.",
+    "contactUsFeedback": "Contact Us / Feedback",
+    "email": "Email",
+     "password": "Password",
+     "login":"Sign In",
+     "alreadyHaveAccount": "Already have an account?",
+     "register":"Register",
+     "dontHaveAccount": "Don't have an account yet?"
+
+}

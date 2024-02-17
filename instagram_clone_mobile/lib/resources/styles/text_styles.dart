@@ -38,7 +38,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading1,
@@ -60,7 +60,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading2,
@@ -82,7 +82,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading3,
@@ -104,7 +104,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading4,
@@ -126,7 +126,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading5,
@@ -149,7 +149,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading6,
@@ -172,7 +172,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodyXLarge,
@@ -195,7 +195,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodyLarge,
@@ -218,7 +218,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         overflow: overflow ?? TextOverflow.ellipsis,
         color: color ?? AppColors.light,
@@ -242,7 +242,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodySmall,
@@ -266,7 +266,7 @@ class AppTextStyle {
     double? letterSpacing,
     bool isUnderline = false,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.roboto(
       textStyle: TextStyle(
         color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodyXSmall,

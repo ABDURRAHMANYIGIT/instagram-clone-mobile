@@ -1,6 +1,6 @@
 class AppIcons {
   AppIcons._();
-
+  static const String instagramIcon = 'assets/images/app_icon.png';
   static const String back = 'assets/icons/back.svg';
   static const String close = 'assets/icons/close.svg';
   static const String sport = 'assets/icons/sport.svg';
