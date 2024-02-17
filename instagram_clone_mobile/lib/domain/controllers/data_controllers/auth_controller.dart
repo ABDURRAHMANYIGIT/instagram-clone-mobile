@@ -52,6 +52,16 @@ class AuthController extends GetxController {
     return _databaseServices.login(email: email, password: password);
   }
 
+  Future<bool> register(
+      {required String email,
+      required String password,
+      required String passwordConfirmation}) async {
+    return _databaseServices.register(
+        email: email,
+        password: password,
+        passwordConfirmation: passwordConfirmation);
+  }
+
   Future<void> checkAuthStatus() async {
     if (authUser.value != null) {
       if (isFirstLogin) {

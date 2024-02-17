@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/login_screen_controller.dart';
+import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/register_screen_controller.dart';
 import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/button/custom_button.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/custom_text_form_field.dart';
@@ -14,13 +13,13 @@ import 'package:instagram_clone_mobile/resources/file_paths/icons.dart';
 import 'package:instagram_clone_mobile/resources/styles/colors.dart';
 import 'package:instagram_clone_mobile/resources/styles/text_styles.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final LoginScreenController loginScreenController =
-        Get.put(LoginScreenController());
+    final RegisterScreenController registerScreenController =
+        Get.put(RegisterScreenController());
     return MainLayout(
         content: GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -39,15 +38,23 @@ class LoginScreen extends StatelessWidget {
                 ),
                 CustomTextFormField(
                     controller:
-                        loginScreenController.emailTextEditingController,
+                        registerScreenController.emailTextEditingController,
                     label: 'Email'),
                 const SizedBox(
                   height: 20,
                 ),
                 CustomTextFormField(
                   controller:
-                      loginScreenController.passwordTextEditingController,
+                      registerScreenController.passwordTextEditingController,
                   label: 'Password',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextFormField(
+                  controller: registerScreenController
+                      .passwordConfirmationTextEditingController,
+                  label: 'Password Confirmation',
                 ),
                 const SizedBox(
                   height: 20,
@@ -55,9 +62,9 @@ class LoginScreen extends StatelessWidget {
                 Obx(() {
                   return CustomButton(
                     width: Get.width,
-                    onTap: loginScreenController.login,
-                    inProgress: loginScreenController.loginInProgress,
-                    child: const CustomText('Login'),
+                    onTap: registerScreenController.register,
+                    inProgress: registerScreenController.registerInProgress,
+                    child: const CustomText('Register'),
                   );
                 }),
                 const SizedBox(
@@ -67,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CustomText(
-                      'Dont have any account?',
+                      'Already have account?',
                       style:
                           AppTextStyle.bodyMedium(color: AppColors.background),
                     ),
@@ -76,10 +83,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRouter.registerRoute);
+                        Get.toNamed(AppRouter.loginRoute);
                       },
                       child: CustomText(
-                        'Register',
+                        'Login',
                         style: AppTextStyle.bodyMedium(color: AppColors.blue),
                       ),
                     )
