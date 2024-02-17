@@ -1,5 +1,4 @@
 import 'dart:convert' as convert;
-import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
@@ -52,12 +51,16 @@ class Api implements BaseServices {
   }) async {
     var result = false;
     try {
-      final http.Response response = await http.post(Uri.parse('$domain/login'),
-          headers: _Headers().getHeaderUnauth(),
-          body: jsonEncode({
+      final http.Response response = await http.post(
+        Uri.parse('$domain/login'),
+        body: convert.jsonEncode(
+          <String, dynamic>{
             'email': email,
             'password': password,
-          }));
+          },
+        ),
+        headers: _Headers().getHeaderUnauth(),
+      );
       final dynamic body = convert.jsonDecode(response.body);
       if (response.statusCode == 200) {
         result = true;

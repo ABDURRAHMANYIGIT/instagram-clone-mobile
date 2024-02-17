@@ -45,11 +45,14 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              CustomButton(
-                child: CustomText('Login'),
-                width: Get.width,
-                onTap: loginScreenController.login,
-              )
+              Obx(() {
+                return CustomButton(
+                  child: CustomText('Login'),
+                  width: Get.width,
+                  onTap: loginScreenController.login,
+                  inProgress: loginScreenController.loginInProgress,
+                );
+              })
             ],
           ),
         ),
