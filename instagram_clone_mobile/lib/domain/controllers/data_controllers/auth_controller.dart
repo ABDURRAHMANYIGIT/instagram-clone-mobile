@@ -49,17 +49,26 @@ class AuthController extends GetxController {
     required String email,
     required String password,
   }) async {
-    return _databaseServices.login(email: email, password: password);
+    final bool result =
+        await _databaseServices.login(email: email, password: password);
+    if (result) {
+      await getUser();
+    }
+    return result;
   }
 
   Future<bool> register(
       {required String email,
       required String password,
       required String passwordConfirmation}) async {
-    return _databaseServices.register(
+    final bool result = await _databaseServices.register(
         email: email,
         password: password,
         passwordConfirmation: passwordConfirmation);
+    if (result) {
+      await getUser();
+    }
+    return result;
   }
 
   Future<void> checkAuthStatus() async {
