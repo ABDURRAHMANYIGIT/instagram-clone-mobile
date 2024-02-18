@@ -1,3 +1,4 @@
+import 'package:instagram_clone_mobile/data/models/post_object.dart';
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
 
 abstract class BaseServices {
@@ -11,4 +12,5 @@ abstract class BaseServices {
     required String email,
     required String password,
   });
+  Future<List<PostObject?>> getPosts({required int currentPage});
 }

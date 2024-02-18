@@ -1,3 +1,4 @@
+import 'package:instagram_clone_mobile/data/models/post_object.dart';
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
 import 'package:instagram_clone_mobile/data/repositories/api.dart';
 import 'package:instagram_clone_mobile/domain/repositories/base_services.dart';
@@ -35,5 +36,10 @@ class DatabaseServices implements BaseServices {
         email: email,
         password: password,
         passwordConfirmation: passwordConfirmation);
+  }
+
+  @override
+  Future<List<PostObject?>> getPosts({required int currentPage}) {
+    return api.getPosts(currentPage: currentPage);
   }
 }

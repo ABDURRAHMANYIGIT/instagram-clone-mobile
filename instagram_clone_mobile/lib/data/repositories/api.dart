@@ -1,6 +1,7 @@
 import 'dart:convert' as convert;
 import 'dart:developer';
 import 'package:http/http.dart' as http;
+import 'package:instagram_clone_mobile/data/models/post_object.dart';
 
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
 import 'package:instagram_clone_mobile/domain/helpers/shared_preferences.dart';
@@ -107,6 +108,39 @@ class Api implements BaseServices {
       }
     } catch (e) {
       log(e.toString());
+    }
+    return result;
+  }
+
+  @override
+  Future<List<PostObject?>> getPosts({required int currentPage}) async {
+    String? token;
+    token = await SharedPreference().getToken();
+    final List<PostObject?> result = [];
+    if (token != null) {
+      try {
+        final http.Response response = await http.get(
+          Uri.parse('$domain/posts?$currentPage'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          String originalBaseUrl = 'http://10.0.2.2:8000';
+          String modifiedBaseUrl = 'http://127.0.0.1:8000';
+
+          for (var object in body['data']) {
+            String originalImageUrl = object['image'];
+            String modifiedImageUrl =
+                originalImageUrl.replaceAll(originalBaseUrl, modifiedBaseUrl);
+            object['image'] = modifiedImageUrl;
+            result.add(PostObject.fromJson(object));
+          }
+        } else {
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
     }
     return result;
   }
