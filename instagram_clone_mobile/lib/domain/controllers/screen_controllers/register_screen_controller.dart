@@ -16,7 +16,6 @@ class RegisterScreenController extends GetxController {
 
   Future<void> register() async {
     _registerInProgress.value = true;
-    update();
     final bool result = await _authController.register(
         email: emailTextEditingController.text,
         password: passwordTextEditingController.text,

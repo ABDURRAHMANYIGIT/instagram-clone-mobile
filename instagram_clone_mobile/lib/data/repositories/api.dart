@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
 import 'package:instagram_clone_mobile/domain/helpers/shared_preferences.dart';
+import 'package:instagram_clone_mobile/domain/helpers/tools_helper.dart';
 import 'package:instagram_clone_mobile/domain/repositories/base_services.dart';
 import 'package:instagram_clone_mobile/resources/config/app_logic.dart';
 part 'headers.dart';
@@ -36,6 +37,7 @@ class Api implements BaseServices {
         } else {
           await SharedPreference().setToken(null);
           await SharedPreference().setUserId(null);
+          Tools().handleError(body: body as Map<String, dynamic>);
         }
       } catch (e) {
         log(e.toString());
@@ -68,6 +70,7 @@ class Api implements BaseServices {
       } else {
         await SharedPreference().setToken(null);
         await SharedPreference().setUserId(null);
+        Tools().handleError(body: body as Map<String, dynamic>);
       }
     } catch (e) {
       log(e.toString());
@@ -100,6 +103,7 @@ class Api implements BaseServices {
       } else {
         await SharedPreference().setToken(null);
         await SharedPreference().setUserId(null);
+        Tools().handleError(body: body as Map<String, dynamic>);
       }
     } catch (e) {
       log(e.toString());

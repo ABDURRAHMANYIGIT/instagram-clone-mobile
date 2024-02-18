@@ -14,13 +14,10 @@ class LoginScreenController extends GetxController {
 
   Future<void> login() async {
     _loginInProgress.value = true;
-    update();
     final bool result = await _authController.login(
         email: emailTextEditingController.text,
         password: passwordTextEditingController.text);
-    Future.delayed(Duration(seconds: 3));
     _loginInProgress.value = false;
-    update();
     if (result) {
       Get.toNamed(AppRouter.designRoute);
     }
