@@ -9,4 +9,10 @@ class AppIcons {
   static const String meditation = 'assets/icons/meditation.svg';
   static const String mentality = 'assets/icons/sword-cross.svg';
   static const String journal = 'assets/icons/journal.svg';
+  static const String like = 'assets/icons/like.png';
+  static const String likeFilled = 'assets/icons/like_filled.png';
+  static const String comment = 'assets/icons/comment.png';
+  static const String share = 'assets/icons/share.png';
+  static const String save = 'assets/icons/save.png';
+  static const String saveFilled = 'assets/icons/save_filled.png';
 }

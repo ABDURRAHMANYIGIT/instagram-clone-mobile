@@ -14,13 +14,16 @@ class HomeScreen extends StatelessWidget {
         Get.put(HomeScreenController());
     return MainLayout(content: Obx(() {
       return homeScreenController.postObjectList.isNotEmpty
-          ? ListView.builder(
-              itemCount: homeScreenController.postObjectList.length,
-              itemBuilder: ((context, index) {
-                return PostWidget(
-                  postObject: homeScreenController.postObjectList[index]!,
-                );
-              }),
+          ? LazyLoadScrollView(
+              onEndOfPage: () => homeScreenController.loadPosts(),
+              child: ListView.builder(
+                itemCount: homeScreenController.postObjectList.length,
+                itemBuilder: ((context, index) {
+                  return PostWidget(
+                    postObject: homeScreenController.postObjectList[index]!,
+                  );
+                }),
+              ),
             )
           : Container();
     }));

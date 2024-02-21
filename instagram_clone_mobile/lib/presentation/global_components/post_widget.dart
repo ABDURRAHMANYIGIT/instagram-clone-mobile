@@ -1,11 +1,11 @@
+import 'package:float_column/float_column.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:http/http.dart';
+import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
+import 'package:instagram_clone_mobile/presentation/global_components/avatar_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/image/image_asset.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
-import 'package:instagram_clone_mobile/resources/styles/colors.dart';
+import 'package:instagram_clone_mobile/resources/file_paths/icons.dart';
 import 'package:instagram_clone_mobile/resources/styles/text_styles.dart';
 
 class PostWidget extends StatelessWidget {
@@ -15,11 +15,90 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ImageAsset(postObject.image ?? ''),
-        CustomText(
-          postObject.description ?? '',
-          textOverflow: TextOverflow.visible,
-          style: AppTextStyle.h6(color: AppColors.black),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              AvatarWidget(imagePath: postObject.user?.profilePhoto ?? ''),
+              const SizedBox(
+                width: 12,
+              ),
+              CustomText(
+                postObject.user?.name ?? '',
+              )
+            ],
+          ),
+        ),
+        postObject.image != null
+            ? ImageAsset(
+                postObject.image!,
+                width: Get.width,
+                height: Get.width,
+                fit: BoxFit.cover,
+              )
+            : SizedBox(
+                width: Get.width,
+                height: Get.width,
+                child: CustomText(
+                  'Post couldnt loaded',
+                  style: AppTextStyle.h6(),
+                ),
+              ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: const [
+                  ImageAsset(
+                    AppIcons.like,
+                    width: 20,
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ImageAsset(
+                    AppIcons.comment,
+                    width: 20,
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ImageAsset(
+                    AppIcons.share,
+                    width: 20,
+                    height: 20,
+                  )
+                ],
+              ),
+              const ImageAsset(
+                AppIcons.save,
+                width: 20,
+                height: 20,
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: FloatColumn(
+            children: [
+              Floatable(
+                float: FCFloat.left,
+                padding: const EdgeInsets.only(right: 8),
+                child: CustomText(
+                  postObject.user?.name ?? '',
+                  style: AppTextStyle.bodyMedium(weight: AppTextStyle.fontBold),
+                ),
+              ),
+              WrappableText(
+                text: TextSpan(text: postObject.description ?? ''),
+              )
+            ],
+          ),
         ),
       ],
     );

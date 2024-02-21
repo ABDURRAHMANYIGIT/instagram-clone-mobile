@@ -61,6 +61,6 @@ extension ImageType on String {
   }
 
   bool get isWeb {
-    return contains('http');
+    return contains('http') || contains('https');
   }
 }

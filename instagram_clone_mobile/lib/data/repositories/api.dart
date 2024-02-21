@@ -125,14 +125,7 @@ class Api implements BaseServices {
         );
         final dynamic body = convert.jsonDecode(response.body);
         if (response.statusCode == 200) {
-          String originalBaseUrl = 'http://10.0.2.2:8000';
-          String modifiedBaseUrl = 'http://127.0.0.1:8000';
-
           for (var object in body['data']) {
-            String originalImageUrl = object['image'];
-            String modifiedImageUrl =
-                originalImageUrl.replaceAll(originalBaseUrl, modifiedBaseUrl);
-            object['image'] = modifiedImageUrl;
             result.add(PostObject.fromJson(object));
           }
         } else {

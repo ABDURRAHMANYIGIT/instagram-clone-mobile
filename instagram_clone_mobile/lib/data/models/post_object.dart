@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:instagram_clone_mobile/data/models/user_object.dart';
+
 class PostObject {
   PostObject({
     required int id,
@@ -8,8 +10,8 @@ class PostObject {
   });
   PostObject.fromJson(Map<String, dynamic> json) {
     try {
-      id = json['id'] as int;
-      userId = json['user_id'] as int?;
+      id = json['id'] as int?;
+      user = json['user'] != null ? UserObject.fromJson(json['user']) : null;
       description = json['description'] as String?;
       image = json['image'] as String?;
     } catch (e) {
@@ -17,14 +19,14 @@ class PostObject {
     }
   }
   int? id;
-  int? userId;
+  UserObject? user;
   String? description;
   String? image;
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
-      'user_id': userId,
+      'user': user,
       'description': description,
       'image': image,
       'fields': <String, dynamic>{},
