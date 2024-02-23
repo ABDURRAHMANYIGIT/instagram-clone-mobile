@@ -13,4 +13,7 @@ abstract class BaseServices {
     required String password,
   });
   Future<List<PostObject?>> getPosts({required int currentPage});
+  Future<bool> likePost({required int id});
+  Future<List<PostObject?>> getLikedPosts({required int currentPage});
+  Future<List<int?>> getLikedPostIds();
 }

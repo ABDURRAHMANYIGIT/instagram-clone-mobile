@@ -2,6 +2,7 @@ import 'package:float_column/float_column.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
+import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/home_screen_controller.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/avatar_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/image/image_asset.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
@@ -13,6 +14,7 @@ class PostWidget extends StatelessWidget {
   final PostObject postObject;
   @override
   Widget build(BuildContext context) {
+    final HomeScreenController homeScreenController = Get.find();
     return Column(
       children: <Widget>[
         Padding(
@@ -30,11 +32,15 @@ class PostWidget extends StatelessWidget {
           ),
         ),
         postObject.image != null
-            ? ImageAsset(
-                postObject.image!,
-                width: Get.width,
-                height: Get.width,
-                fit: BoxFit.cover,
+            ? GestureDetector(
+                onDoubleTap: () =>
+                    homeScreenController.likePost(id: postObject.id),
+                child: ImageAsset(
+                  postObject.image!,
+                  width: Get.width,
+                  height: Get.width,
+                  fit: BoxFit.cover,
+                ),
               )
             : SizedBox(
                 width: Get.width,
@@ -46,41 +52,50 @@ class PostWidget extends StatelessWidget {
               ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: const [
-                  ImageAsset(
-                    AppIcons.like,
-                    width: 20,
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ImageAsset(
-                    AppIcons.comment,
-                    width: 20,
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ImageAsset(
-                    AppIcons.share,
-                    width: 20,
-                    height: 20,
-                  )
-                ],
-              ),
-              const ImageAsset(
-                AppIcons.save,
-                width: 20,
-                height: 20,
-              )
-            ],
-          ),
+          child: Obx(() {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: (() =>
+                          homeScreenController.likePost(id: postObject.id)),
+                      child: ImageAsset(
+                        homeScreenController.likedPostIds
+                                .contains(postObject.id)
+                            ? AppIcons.likeFilled
+                            : AppIcons.like,
+                        width: 20,
+                        height: 20,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const ImageAsset(
+                      AppIcons.comment,
+                      width: 20,
+                      height: 20,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const ImageAsset(
+                      AppIcons.share,
+                      width: 20,
+                      height: 20,
+                    )
+                  ],
+                ),
+                const ImageAsset(
+                  AppIcons.save,
+                  width: 20,
+                  height: 20,
+                )
+              ],
+            );
+          }),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

@@ -137,4 +137,78 @@ class Api implements BaseServices {
     }
     return result;
   }
+
+  @override
+  Future<bool> likePost({required int id}) async {
+    String? token;
+    token = await SharedPreference().getToken();
+    bool result = false;
+    if (token != null) {
+      try {
+        final http.Response response = await http.post(
+          Uri.parse('$domain/post/like/$id'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          result = true;
+        } else {
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return result;
+  }
+
+  @override
+  Future<List<int?>> getLikedPostIds() async {
+    String? token;
+    token = await SharedPreference().getToken();
+    List<int?> result = [];
+    if (token != null) {
+      try {
+        final http.Response response = await http.get(
+          Uri.parse('$domain/user/get-liked-post-ids'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          result = (body['data'] as List<dynamic>).cast<int?>();
+        } else {
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return result;
+  }
+
+  @override
+  Future<List<PostObject?>> getLikedPosts({required int currentPage}) async {
+    String? token;
+    token = await SharedPreference().getToken();
+    final List<PostObject?> result = [];
+    if (token != null) {
+      try {
+        final http.Response response = await http.get(
+          Uri.parse('$domain/user/get-liked-posts?$currentPage'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          for (var object in body['data']) {
+            result.add(PostObject.fromJson(object));
+          }
+        } else {
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return result;
+  }
 }

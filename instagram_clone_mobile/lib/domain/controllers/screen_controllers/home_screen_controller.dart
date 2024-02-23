@@ -7,6 +7,7 @@ class HomeScreenController extends GetxController {
   final RxInt _currentPage = RxInt(1);
   int get currentPage => _currentPage.value;
   List<PostObject?> get postObjectList => postController.postObjectList;
+  List<int?> get likedPostIds => postController.likedPostIds;
 
   @override
   Future<void> onInit() async {
@@ -17,5 +18,9 @@ class HomeScreenController extends GetxController {
   Future<void> loadPosts() async {
     await postController.loadPosts(currentPage: currentPage);
     update();
+  }
+
+  Future<void> likePost({required int id}) async {
+    await postController.likePost(id: id);
   }
 }

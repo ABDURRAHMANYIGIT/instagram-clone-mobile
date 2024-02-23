@@ -5,6 +5,11 @@ import 'package:instagram_clone_mobile/domain/repositories/index.dart';
 class PostController extends GetxController {
   final RxList<PostObject?> _postObjectList = RxList<PostObject?>([]);
   List<PostObject?> get postObjectList => _postObjectList;
+  final RxList<PostObject?> _likedPostObjectList = RxList<PostObject?>([]);
+  List<PostObject?> get likedPostObjectList => _likedPostObjectList;
+  final RxList<int?> _likedPostIds = RxList<int?>([]);
+  List<int?> get likedPostIds => _likedPostIds;
+
   final DatabaseServices _databaseServices = DatabaseServices();
 
   @override
@@ -18,5 +23,10 @@ class PostController extends GetxController {
         await _databaseServices.getPosts(currentPage: currentPage);
     _postObjectList.refresh();
     update();
+  }
+
+  Future<void> likePost({required int id}) async {
+    await _databaseServices.likePost(id: id);
+    _likedPostIds.value = await _databaseServices.getLikedPostIds();
   }
 }

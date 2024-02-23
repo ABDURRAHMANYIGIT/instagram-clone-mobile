@@ -10,7 +10,7 @@ class PostObject {
   });
   PostObject.fromJson(Map<String, dynamic> json) {
     try {
-      id = json['id'] as int?;
+      id = json['id'] as int;
       user = json['user'] != null ? UserObject.fromJson(json['user']) : null;
       description = json['description'] as String?;
       image = json['image'] as String?;
@@ -18,7 +18,7 @@ class PostObject {
       log(e.toString());
     }
   }
-  int? id;
+  int id = 0;
   UserObject? user;
   String? description;
   String? image;
