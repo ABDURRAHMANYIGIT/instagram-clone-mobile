@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
 import 'package:instagram_clone_mobile/domain/repositories/index.dart';
@@ -28,5 +30,10 @@ class PostController extends GetxController {
   Future<void> likePost({required int id}) async {
     await _databaseServices.likePost(id: id);
     _likedPostIds.value = await _databaseServices.getLikedPostIds();
+  }
+
+  Future<bool> createPost({required File file, String? description}) async {
+    return await _databaseServices.createPost(
+        file: file, description: description);
   }
 }

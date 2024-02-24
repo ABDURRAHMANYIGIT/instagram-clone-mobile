@@ -1,5 +1,6 @@
 import 'dart:convert' as convert;
 import 'dart:developer';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
 
@@ -208,6 +209,39 @@ class Api implements BaseServices {
       } catch (e) {
         log(e.toString());
       }
+    }
+    return result;
+  }
+
+  @override
+  Future<bool> createPost({String? description, required File file}) async {
+    final Uri apiUrl = Uri.parse('$domain/');
+    bool result = false;
+    // Create a multipart request
+    var request = http.MultipartRequest('POST', apiUrl);
+
+    // Add the file to the request
+    var fileStream = http.ByteStream(file.openRead());
+    var length = await file.length();
+    var multipartFile = http.MultipartFile('file', fileStream, length,
+        filename: file.path.split('/').last);
+
+    request.files.add(multipartFile);
+
+    // Add other form fields
+    if (description != null) {
+      request.fields['description'] = description;
+    }
+
+    // Send the request
+    try {
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        result = true;
+      }
+    } catch (e) {
+      log(e.toString());
     }
     return result;
   }

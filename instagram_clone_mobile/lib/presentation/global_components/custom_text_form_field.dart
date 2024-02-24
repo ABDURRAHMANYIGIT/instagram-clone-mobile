@@ -125,6 +125,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           controller: widget.controller,
           cursorColor: AppColors.black,
           maxLines: widget.maxLines,
+          cursorHeight: 20,
           onChanged: widget.onChanged,
           onEditingComplete: widget.onEditingComplete,
           onFieldSubmitted: widget.onSubmitted,
@@ -140,7 +141,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           maxLength: widget.maxLength,
           decoration: InputDecoration(
             counterText: widget.showMaxLength ? null : '',
-            fillColor: widget.isReadOnly ? AppColors.grey : AppColors.lightGrey,
+            fillColor:
+                widget.isReadOnly ? AppColors.lightGrey : AppColors.light,
             filled: true,
             suffixIconConstraints: const BoxConstraints(
               minHeight: 24,

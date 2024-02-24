@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
 import 'package:instagram_clone_mobile/data/repositories/api.dart';
@@ -56,5 +58,10 @@ class DatabaseServices implements BaseServices {
   @override
   Future<List<PostObject?>> getLikedPosts({required int currentPage}) {
     return api.getLikedPosts(currentPage: currentPage);
+  }
+
+  @override
+  Future<bool> createPost({String? description, required File file}) {
+    return api.createPost(file: file, description: description);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
 
@@ -16,4 +18,5 @@ abstract class BaseServices {
   Future<bool> likePost({required int id});
   Future<List<PostObject?>> getLikedPosts({required int currentPage});
   Future<List<int?>> getLikedPostIds();
+  Future<bool> createPost({String? description, required File file});
 }
