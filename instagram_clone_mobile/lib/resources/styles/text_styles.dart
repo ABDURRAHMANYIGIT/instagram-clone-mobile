@@ -40,7 +40,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading1,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -62,7 +62,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading2,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -84,7 +84,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading3,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -106,7 +106,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading4,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -128,7 +128,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading5,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -151,7 +151,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeHeading6,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -174,7 +174,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodyXLarge,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -197,7 +197,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodyLarge,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -221,7 +221,7 @@ class AppTextStyle {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
         overflow: overflow ?? TextOverflow.ellipsis,
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodyMedium,
         fontWeight: weight ?? fontBold,
         fontStyle: isItalic ?? FontStyle.normal,
@@ -244,7 +244,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodySmall,
         fontWeight: weight ?? fontMedium,
         overflow: overflow ?? TextOverflow.ellipsis,
@@ -268,7 +268,7 @@ class AppTextStyle {
   }) {
     return GoogleFonts.roboto(
       textStyle: TextStyle(
-        color: color ?? AppColors.black,
+        color: color ?? AppColors.light,
         fontSize: size ?? fontSizeBodyXSmall,
         fontWeight: weight ?? fontBold,
         overflow: overflow ?? TextOverflow.ellipsis,

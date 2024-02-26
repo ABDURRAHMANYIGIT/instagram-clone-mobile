@@ -7,6 +7,7 @@ import 'package:instagram_clone_mobile/presentation/global_components/avatar_wid
 import 'package:instagram_clone_mobile/presentation/global_components/image/image_asset.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
 import 'package:instagram_clone_mobile/resources/file_paths/icons.dart';
+import 'package:instagram_clone_mobile/resources/styles/colors.dart';
 import 'package:instagram_clone_mobile/resources/styles/text_styles.dart';
 
 class PostWidget extends StatelessWidget {
@@ -27,6 +28,7 @@ class PostWidget extends StatelessWidget {
               ),
               CustomText(
                 postObject.user?.name ?? '',
+                style: AppTextStyle.bodyMedium(color: AppColors.black),
               )
             ],
           ),
@@ -106,7 +108,8 @@ class PostWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8),
                 child: CustomText(
                   postObject.user?.name ?? '',
-                  style: AppTextStyle.bodyMedium(weight: AppTextStyle.fontBold),
+                  style: AppTextStyle.bodyMedium(
+                      weight: AppTextStyle.fontBold, color: AppColors.black),
                 ),
               ),
               WrappableText(

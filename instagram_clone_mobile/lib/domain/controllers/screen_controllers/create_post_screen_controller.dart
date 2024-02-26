@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram_clone_mobile/data/enums/bottom_bar_item.dart';
 import 'package:instagram_clone_mobile/domain/controllers/data_controllers/post_controller.dart';
+import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/main_screen_controller.dart';
 import 'package:instagram_clone_mobile/domain/router/router.dart';
 
 class CreatePostScreenController extends GetxController {
   final PostController _postController = Get.find();
+  final MainScreenController _mainScreenController = Get.find();
   final TextEditingController descriptionTextEditingController =
       TextEditingController();
   final Rxn<File> _selectedImage = Rxn<File>();
@@ -26,7 +29,7 @@ class CreatePostScreenController extends GetxController {
         file: _selectedImage.value!,
         description: descriptionTextEditingController.text);
     if (result) {
-      Get.offAndToNamed(AppRouter.homeRoute);
+      _mainScreenController.selectTab(BottomBarItem.home);
     }
   }
 }
