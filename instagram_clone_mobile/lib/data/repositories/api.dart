@@ -215,7 +215,7 @@ class Api implements BaseServices {
 
   @override
   Future<bool> createPost({String? description, required File file}) async {
-    final Uri apiUrl = Uri.parse('$domain/');
+    final Uri apiUrl = Uri.parse('$domain/post/create');
     bool result = false;
     // Create a multipart request
     var request = http.MultipartRequest('POST', apiUrl);

@@ -14,12 +14,6 @@ class PostController extends GetxController {
 
   final DatabaseServices _databaseServices = DatabaseServices();
 
-  @override
-  Future<void> onInit() async {
-    await loadPosts(currentPage: 1);
-    super.onInit();
-  }
-
   Future<void> loadPosts({required int currentPage}) async {
     _postObjectList.value =
         await _databaseServices.getPosts(currentPage: currentPage);

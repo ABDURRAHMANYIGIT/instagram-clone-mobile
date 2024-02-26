@@ -14,17 +14,33 @@ class HomeScreen extends StatelessWidget {
         Get.put(HomeScreenController());
     return MainLayout(content: Obx(() {
       return homeScreenController.postObjectList.isNotEmpty
-          ? LazyLoadScrollView(
-              onEndOfPage: () => homeScreenController.loadPosts(),
-              child: ListView.builder(
-                itemCount: homeScreenController.postObjectList.length,
-                itemBuilder: ((context, index) {
-                  return PostWidget(
+          ? ListView.builder(
+              shrinkWrap: true,
+              itemCount: homeScreenController.postObjectList.length,
+              itemBuilder: ((context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: PostWidget(
                     postObject: homeScreenController.postObjectList[index]!,
-                  );
-                }),
-              ),
+                  ),
+                );
+              }),
             )
+          //  LazyLoadScrollView(
+          //     onEndOfPage: () => homeScreenController.loadPosts(),
+          //     child: ListView.builder(
+          //       shrinkWrap: true,
+          //       itemCount: homeScreenController.postObjectList.length,
+          //       itemBuilder: ((context, index) {
+          //         return Padding(
+          //           padding: const EdgeInsets.symmetric(vertical: 8.0),
+          //           child: PostWidget(
+          //             postObject: homeScreenController.postObjectList[index]!,
+          //           ),
+          //         );
+          //       }),
+          //     ),
+          //   )
           : Container();
     }));
   }

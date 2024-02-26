@@ -7,6 +7,8 @@ class _Headers {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
+      'Connection': 'keep-alive',
+      'Accept-Encoding': 'gzip, deflate, br',
     };
   }
 
@@ -14,7 +16,9 @@ class _Headers {
     return <String, String>{
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
+      'X-Requested-With': 'XMLHttpRequest',
+      'Connection': 'keep-alive',
+      'Accept-Encoding': 'gzip, deflate, br',
     };
   }
 }

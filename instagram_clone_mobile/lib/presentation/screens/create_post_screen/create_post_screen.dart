@@ -67,13 +67,11 @@ class CreatePostScreen extends StatelessWidget {
                       controller: createPostScreenController
                           .descriptionTextEditingController),
                   const Spacer(),
-                  Obx(() {
-                    return CustomButton(
-                      onTap: createPostScreenController.createPost,
-                      width: Get.width,
-                      child: const CustomText('Share'),
-                    );
-                  })
+                  CustomButton(
+                    onTap: createPostScreenController.createPost,
+                    width: Get.width,
+                    child: const CustomText('Share'),
+                  )
                 ],
               ),
             ),
