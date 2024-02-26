@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/enums/bottom_bar_item.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/main_screen_controller.dart';

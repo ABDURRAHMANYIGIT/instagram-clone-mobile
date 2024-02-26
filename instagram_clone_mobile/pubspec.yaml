@@ -46,8 +46,8 @@ dependencies:
   lazy_load_scrollview: 1.3.0
   flutter_localizations:
     sdk: flutter
-  float_column: ^1.3.3
   image_picker: ^1.0.2
+  float_column: ^2.1.5
 
 dev_dependencies:
   flutter_test:

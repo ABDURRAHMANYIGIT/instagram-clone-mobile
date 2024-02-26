@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/home_screen_controller.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/post_widget.dart';
@@ -14,17 +15,20 @@ class HomeScreen extends StatelessWidget {
         Get.put(HomeScreenController());
     return MainLayout(content: Obx(() {
       return homeScreenController.postObjectList.isNotEmpty
-          ? ListView.builder(
-              shrinkWrap: true,
-              itemCount: homeScreenController.postObjectList.length,
-              itemBuilder: ((context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: PostWidget(
-                    postObject: homeScreenController.postObjectList[index]!,
-                  ),
-                );
-              }),
+          ? RefreshIndicator(
+              onRefresh: homeScreenController.loadPosts,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: homeScreenController.postObjectList.length,
+                itemBuilder: ((context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: PostWidget(
+                      postObject: homeScreenController.postObjectList[index]!,
+                    ),
+                  );
+                }),
+              ),
             )
           //  LazyLoadScrollView(
           //     onEndOfPage: () => homeScreenController.loadPosts(),

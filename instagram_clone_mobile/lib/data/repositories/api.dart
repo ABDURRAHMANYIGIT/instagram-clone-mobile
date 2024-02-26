@@ -121,7 +121,7 @@ class Api implements BaseServices {
     if (token != null) {
       try {
         final http.Response response = await http.get(
-          Uri.parse('$domain/posts?$currentPage'),
+          Uri.parse('$domain/posts?page=$currentPage'),
           headers: _Headers().getHeaderWithAuthToken(token),
         );
         final dynamic body = convert.jsonDecode(response.body);
@@ -215,34 +215,39 @@ class Api implements BaseServices {
 
   @override
   Future<bool> createPost({String? description, required File file}) async {
-    final Uri apiUrl = Uri.parse('$domain/post/create');
+    final String? token = await SharedPreference().getToken();
     bool result = false;
-    // Create a multipart request
-    var request = http.MultipartRequest('POST', apiUrl);
 
-    // Add the file to the request
-    var fileStream = http.ByteStream(file.openRead());
-    var length = await file.length();
-    var multipartFile = http.MultipartFile('file', fileStream, length,
-        filename: file.path.split('/').last);
+    if (token != null) {
+      try {
+        final http.MultipartRequest request = http.MultipartRequest(
+          'POST',
+          Uri.parse('$domain/post/create'),
+        );
 
-    request.files.add(multipartFile);
+        if (description != null) {
+          request.fields.addAll(
+            <String, String>{
+              'description': description,
+            },
+          );
+        }
 
-    // Add other form fields
-    if (description != null) {
-      request.fields['description'] = description;
-    }
+        request.files
+            .add(await http.MultipartFile.fromPath('image', file.path));
+        request.headers.addAll(_Headers().getFileHeaderWithAuthToken(token));
 
-    // Send the request
-    try {
-      var response = await request.send();
+        final http.Response response =
+            await http.Response.fromStream(await request.send());
 
-      if (response.statusCode == 200) {
-        result = true;
+        if (response.statusCode == 200) {
+          result = true;
+        }
+      } catch (e) {
+        log(e.toString());
       }
-    } catch (e) {
-      log(e.toString());
     }
+
     return result;
   }
 }

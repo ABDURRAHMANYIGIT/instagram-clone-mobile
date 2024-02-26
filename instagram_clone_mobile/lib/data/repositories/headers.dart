@@ -21,4 +21,14 @@ class _Headers {
       'Accept-Encoding': 'gzip, deflate, br',
     };
   }
+
+  Map<String, String> getFileHeaderWithAuthToken(String token) {
+    return <String, String>{
+      'Content-Type': 'multipart/form-data',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Connection': 'keep-alive',
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+  }
 }
