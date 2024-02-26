@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/home_screen_controller.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/post_widget.dart';
 import 'package:instagram_clone_mobile/presentation/layouts/main_layout.dart';
-import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
