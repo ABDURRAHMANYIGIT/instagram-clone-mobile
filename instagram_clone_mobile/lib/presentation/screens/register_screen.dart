@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/register_screen_controller.dart';
 import 'package:instagram_clone_mobile/domain/router/router.dart';

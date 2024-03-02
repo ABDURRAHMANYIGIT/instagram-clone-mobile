@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone_mobile/data/enums/bottom_bar_item.dart';
 import 'package:instagram_clone_mobile/domain/controllers/data_controllers/post_controller.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/main_screen_controller.dart';
-import 'package:instagram_clone_mobile/domain/router/router.dart';
 
 class CreatePostScreenController extends GetxController {
   final PostController _postController = Get.find();

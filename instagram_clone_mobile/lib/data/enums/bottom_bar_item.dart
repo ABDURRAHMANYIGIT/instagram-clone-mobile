@@ -1,4 +1,3 @@
-import 'package:flutter/animation.dart';
 import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/resources/file_paths/icons.dart';
 
