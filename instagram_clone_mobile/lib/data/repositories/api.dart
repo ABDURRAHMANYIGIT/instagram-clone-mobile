@@ -250,4 +250,28 @@ class Api implements BaseServices {
 
     return result;
   }
+
+  @override
+  Future<bool> followUser({required int userId}) async {
+    String? token;
+    token = await SharedPreference().getToken();
+    bool result = false;
+    if (token != null) {
+      try {
+        final http.Response response = await http.post(
+          Uri.parse('$domain/user/follow-user/$userId'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          result = true;
+        } else {
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return result;
+  }
 }

@@ -64,4 +64,9 @@ class DatabaseServices implements BaseServices {
   Future<bool> createPost({String? description, required File file}) {
     return api.createPost(file: file, description: description);
   }
+
+  @override
+  Future<bool> followUser({required int userId}) {
+    return api.followUser(userId: userId);
+  }
 }

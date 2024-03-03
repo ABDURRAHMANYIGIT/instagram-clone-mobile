@@ -33,6 +33,7 @@ class PostController extends GetxController {
         file: file, description: description);
     if (result) {
       await _authController.getUser();
+      update();
     }
     return result;
   }

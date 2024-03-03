@@ -29,7 +29,22 @@ class PostWidget extends StatelessWidget {
               CustomText(
                 postObject.user?.name ?? '',
                 style: AppTextStyle.bodyMedium(color: AppColors.black),
-              )
+              ),
+              const Spacer(),
+              if (postObject.user?.id != homeScreenController.authUser?.id)
+                Obx(() {
+                  return GestureDetector(
+                    onTap: () => homeScreenController.followUser(
+                        userId: postObject.user?.id),
+                    child: CustomText(
+                      homeScreenController.authUser!.followings.any(
+                              (element) => element.id == postObject.user?.id)
+                          ? 'Unfollow'
+                          : 'Follow',
+                      style: AppTextStyle.bodyMedium(color: AppColors.blue),
+                    ),
+                  );
+                }),
             ],
           ),
         ),
