@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
+import 'package:instagram_clone_mobile/domain/controllers/data_controllers/auth_controller.dart';
 import 'package:instagram_clone_mobile/domain/repositories/index.dart';
 
 class PostController extends GetxController {
@@ -13,6 +14,7 @@ class PostController extends GetxController {
   List<int?> get likedPostIds => _likedPostIds;
 
   final DatabaseServices _databaseServices = DatabaseServices();
+  final AuthController _authController = Get.find();
 
   Future<void> loadPosts({required int currentPage}) async {
     _postObjectList.value =
@@ -27,7 +29,11 @@ class PostController extends GetxController {
   }
 
   Future<bool> createPost({required File file, String? description}) async {
-    return await _databaseServices.createPost(
+    final result = await _databaseServices.createPost(
         file: file, description: description);
+    if (result) {
+      await _authController.getUser();
+    }
+    return result;
   }
 }
