@@ -44,16 +44,22 @@ class ProfileScreen extends StatelessWidget {
                                       .authUser?.posts.length ??
                                   0,
                               title: 'Posts'),
-                          ProfileNumberInformation(
-                              number: _profileScreenController
-                                      .authUser?.followers.length ??
-                                  0,
-                              title: 'Followers'),
-                          ProfileNumberInformation(
-                              number: _profileScreenController
-                                      .authUser?.followings.length ??
-                                  0,
-                              title: 'Followings'),
+                          GestureDetector(
+                            onTap: _profileScreenController.showFollowersPopup,
+                            child: ProfileNumberInformation(
+                                number: _profileScreenController
+                                        .authUser?.followers.length ??
+                                    0,
+                                title: 'Followers'),
+                          ),
+                          GestureDetector(
+                            onTap: _profileScreenController.showFollowingsPopup,
+                            child: ProfileNumberInformation(
+                                number: _profileScreenController
+                                        .authUser?.followings.length ??
+                                    0,
+                                title: 'Followings'),
+                          ),
                         ],
                       )
                     ],
@@ -74,7 +80,8 @@ class ProfileScreen extends StatelessWidget {
             if (_profileScreenController.authUser!.posts.isNotEmpty)
               GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3, childAspectRatio: 1 / 1),
+                    crossAxisCount: 3,
+                  ),
                   shrinkWrap: true,
                   itemCount: _profileScreenController.authUser?.posts.length,
                   itemBuilder: (context, index) {

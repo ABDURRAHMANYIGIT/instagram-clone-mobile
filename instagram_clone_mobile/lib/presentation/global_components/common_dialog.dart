@@ -32,7 +32,7 @@ void showCommonDialog({
           ? CustomText(
               confirmButtonText,
               style: AppTextStyle.bodyLarge(
-                color: AppColors.light,
+                color: AppColors.black,
                 weight: AppTextStyle.fontBold,
               ),
             )
