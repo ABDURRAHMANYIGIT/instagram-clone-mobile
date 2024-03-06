@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileScreenController _profileScreenController =
+    final ProfileScreenController profileScreenController =
         Get.put(ProfileScreenController());
     return MainLayout(
       content: SafeArea(
@@ -32,36 +32,36 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       AvatarWidget(
                         imagePath:
-                            _profileScreenController.authUser?.profilePhoto ??
-                                '',
+                            profileScreenController.user?.profilePhoto ?? '',
                         height: Get.width * 0.2,
                         width: Get.width * 0.2,
                       ),
-                      Row(
-                        children: [
-                          ProfileNumberInformation(
-                              number: _profileScreenController
-                                      .authUser?.posts.length ??
-                                  0,
-                              title: 'Posts'),
-                          GestureDetector(
-                            onTap: _profileScreenController.showFollowersPopup,
-                            child: ProfileNumberInformation(
-                                number: _profileScreenController
-                                        .authUser?.followers.length ??
-                                    0,
-                                title: 'Followers'),
-                          ),
-                          GestureDetector(
-                            onTap: _profileScreenController.showFollowingsPopup,
-                            child: ProfileNumberInformation(
-                                number: _profileScreenController
-                                        .authUser?.followings.length ??
-                                    0,
-                                title: 'Followings'),
-                          ),
-                        ],
-                      )
+                      Obx(() {
+                        return Row(
+                          children: [
+                            ProfileNumberInformation(
+                                number: profileScreenController.postList.length,
+                                title: 'Posts'),
+                            GestureDetector(
+                              onTap: profileScreenController.showFollowersPopup,
+                              child: ProfileNumberInformation(
+                                  number: profileScreenController
+                                          .user?.followers.length ??
+                                      0,
+                                  title: 'Followers'),
+                            ),
+                            GestureDetector(
+                              onTap:
+                                  profileScreenController.showFollowingsPopup,
+                              child: ProfileNumberInformation(
+                                  number: profileScreenController
+                                          .user?.followings.length ??
+                                      0,
+                                  title: 'Followings'),
+                            ),
+                          ],
+                        );
+                      })
                     ],
                   ),
                   Align(
@@ -69,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomText(
-                        _profileScreenController.authUser?.name ?? '',
+                        profileScreenController.user?.name ?? '',
                         style: AppTextStyle.bodyMedium(color: AppColors.black),
                       ),
                     ),
@@ -77,20 +77,19 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            if (_profileScreenController.authUser!.posts.isNotEmpty)
-              GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  shrinkWrap: true,
-                  itemCount: _profileScreenController.authUser?.posts.length,
-                  itemBuilder: (context, index) {
-                    return SmallPostWidget(
-                        postObject:
-                            _profileScreenController.authUser!.posts[index]);
-                  })
-            else
-              Container()
+            Obx(() => profileScreenController.postList.isNotEmpty
+                ? GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: profileScreenController.postList.length,
+                    itemBuilder: (context, index) {
+                      return SmallPostWidget(
+                          postObject: profileScreenController.postList[index]);
+                    })
+                : Container())
           ],
         ),
       ),

@@ -7,7 +7,7 @@ class StartupBindings extends Bindings {
   @override
   void dependencies() {
     AuthBinding().dependencies();
-    PostBinding().dependencies();
     UserBinding().dependencies();
+    PostBinding().dependencies();
   }
 }

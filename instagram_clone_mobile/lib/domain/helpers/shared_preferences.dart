@@ -9,7 +9,7 @@ class SharedPreference {
 
   Future<bool> getSeen() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('seen') ?? true;
+    return prefs.getBool('seen') ?? false;
   }
 
   Future<bool> setUserId(String? userId) async {

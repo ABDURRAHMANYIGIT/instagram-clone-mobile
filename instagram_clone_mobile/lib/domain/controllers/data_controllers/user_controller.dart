@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:instagram_clone_mobile/data/models/post_object.dart';
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
 import 'package:instagram_clone_mobile/domain/controllers/data_controllers/auth_controller.dart';
 import 'package:instagram_clone_mobile/domain/repositories/index.dart';
@@ -14,5 +15,9 @@ class UserController extends GetxController {
     _authController.getUser();
     update();
     return result;
+  }
+
+  Future<List<PostObject>> getMyPosts() async {
+    return await _databaseServices.getMyPosts();
   }
 }

@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:instagram_clone_mobile/data/models/post_object.dart';
-
 class UserObject {
   UserObject();
   UserObject.fromJson(Map<String, dynamic> json) {
@@ -10,18 +8,18 @@ class UserObject {
       name = json['name'] as String?;
       profilePhoto = json['profile_photo'] as String?;
       email = json['email'] as String?;
-      followings = (json['followings'] as List<dynamic>)
-          .map((dynamic item) =>
-              UserObject.fromJson(item as Map<String, dynamic>))
-          .toList();
-      followers = (json['followers'] as List<dynamic>)
-          .map((dynamic item) =>
-              UserObject.fromJson(item as Map<String, dynamic>))
-          .toList();
-      posts = (json['posts'] as List<dynamic>)
-          .map((dynamic item) =>
-              PostObject.fromJson(item as Map<String, dynamic>))
-          .toList();
+      followings = json['followings'] != null
+          ? (json['followings'] as List<dynamic>)
+              .map((dynamic item) =>
+                  UserObject.fromJson(item as Map<String, dynamic>))
+              .toList()
+          : [];
+      followers = json['followers'] != null
+          ? (json['followers'] as List<dynamic>)
+              .map((dynamic item) =>
+                  UserObject.fromJson(item as Map<String, dynamic>))
+              .toList()
+          : [];
     } catch (e) {
       log(e.toString());
     }
@@ -32,7 +30,6 @@ class UserObject {
   String? profilePhoto;
   List<UserObject> followings = [];
   List<UserObject> followers = [];
-  List<PostObject> posts = [];
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -42,7 +39,6 @@ class UserObject {
       'email': email,
       'followings': followings,
       'followers': followers,
-      'posts': posts,
       'fields': <String, dynamic>{},
       'file_fields': <String, dynamic>{},
     };

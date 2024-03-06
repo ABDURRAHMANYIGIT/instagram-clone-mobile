@@ -69,4 +69,9 @@ class DatabaseServices implements BaseServices {
   Future<bool> followUser({required int userId}) {
     return api.followUser(userId: userId);
   }
+
+  @override
+  Future<List<PostObject>> getMyPosts() {
+    return api.getMyPosts();
+  }
 }

@@ -6,6 +6,7 @@ import 'package:instagram_clone_mobile/presentation/screens/explore_screen/explo
 import 'package:instagram_clone_mobile/presentation/screens/home_screen.dart';
 import 'package:instagram_clone_mobile/presentation/screens/login_screen.dart';
 import 'package:instagram_clone_mobile/presentation/screens/main_screen/main_screen.dart';
+import 'package:instagram_clone_mobile/presentation/screens/post_listing_screen/post_listing_screen.dart';
 import 'package:instagram_clone_mobile/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:instagram_clone_mobile/presentation/screens/reels_screen/reels_screen.dart';
 import 'package:instagram_clone_mobile/presentation/screens/register_screen.dart';
@@ -26,6 +27,7 @@ class AppRouter {
   static const String reelsRoute = '/reels';
   static const String profileRoute = '/profile';
   static const String mainRoute = '/main';
+  static const String postListingRoute = '/post-listing-screen';
 
   static List<GetPage<dynamic>> pages = <GetPage<dynamic>>[
     GetPage(name: splashRoute, page: () => const Splash()),
@@ -55,6 +57,10 @@ class AppRouter {
     GetPage(
       name: mainRoute,
       page: () => const MainScreen(),
+    ),
+    GetPage(
+      name: postListingRoute,
+      page: () => const PostListingScreen(),
     ),
   ];
 }

@@ -37,8 +37,10 @@ class PostWidget extends StatelessWidget {
                     onTap: () => homeScreenController.followUser(
                         userId: postObject.user?.id),
                     child: CustomText(
-                      homeScreenController.authUser!.followings.any(
-                              (element) => element.id == postObject.user?.id)
+                      homeScreenController.authUser != null &&
+                              homeScreenController.authUser!.followings.any(
+                                  (element) =>
+                                      element.id == postObject.user?.id)
                           ? 'Unfollow'
                           : 'Follow',
                       style: AppTextStyle.bodyMedium(color: AppColors.blue),

@@ -274,4 +274,30 @@ class Api implements BaseServices {
     }
     return result;
   }
+
+  @override
+  Future<List<PostObject>> getMyPosts() async {
+    String? token;
+    token = await SharedPreference().getToken();
+    final List<PostObject> result = [];
+    if (token != null) {
+      try {
+        final http.Response response = await http.get(
+          Uri.parse('$domain/posts/get-my-posts'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          for (var object in body['data']) {
+            result.add(PostObject.fromJson(object));
+          }
+        } else {
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return result;
+  }
 }
