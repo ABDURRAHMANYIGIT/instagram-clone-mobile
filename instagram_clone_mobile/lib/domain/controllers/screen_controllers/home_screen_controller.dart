@@ -20,7 +20,6 @@ class HomeScreenController extends GetxController {
 
   Future<void> loadPosts() async {
     await postController.loadPosts(currentPage: currentPage);
-    _currentPage.value++;
     update();
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/home_screen_controller.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/post/post_widget.dart';
+import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
 import 'package:instagram_clone_mobile/presentation/layouts/main_layout.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,22 +29,7 @@ class HomeScreen extends StatelessWidget {
                 }),
               ),
             )
-          //  LazyLoadScrollView(
-          //     onEndOfPage: () => homeScreenController.loadPosts(),
-          //     child: ListView.builder(
-          //       shrinkWrap: true,
-          //       itemCount: homeScreenController.postObjectList.length,
-          //       itemBuilder: ((context, index) {
-          //         return Padding(
-          //           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          //           child: PostWidget(
-          //             postObject: homeScreenController.postObjectList[index]!,
-          //           ),
-          //         );
-          //       }),
-          //     ),
-          //   )
-          : Container();
+          : const CustomText('No Post found');
     }));
   }
 }

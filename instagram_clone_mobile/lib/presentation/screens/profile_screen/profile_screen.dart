@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/profile_screen_controller.dart';
+import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/avatar_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/profile_number_information_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
@@ -86,8 +87,17 @@ class ProfileScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: profileScreenController.postList.length,
                     itemBuilder: (context, index) {
-                      return SmallPostWidget(
-                          postObject: profileScreenController.postList[index]);
+                      return GestureDetector(
+                        onTap: () => Get.toNamed(AppRouter.postListingRoute,
+                            arguments: profileScreenController.postList),
+                        child: Hero(
+                          tag:
+                              'post-${profileScreenController.postList[index].id}',
+                          child: SmallPostWidget(
+                              postObject:
+                                  profileScreenController.postList[index]),
+                        ),
+                      );
                     })
                 : Container())
           ],
