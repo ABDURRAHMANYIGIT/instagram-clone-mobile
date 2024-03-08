@@ -20,5 +20,8 @@ abstract class BaseServices {
   Future<List<int?>> getLikedPostIds();
   Future<bool> createPost({String? description, required File file});
   Future<bool> followUser({required int userId});
+  Future<UserObject?> getUserById({required int userId});
   Future<List<PostObject>> getMyPosts();
+  Future<List<PostObject?>> getUsersPosts(
+      {required int id, required int currentPage});
 }

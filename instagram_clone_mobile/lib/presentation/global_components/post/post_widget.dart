@@ -26,7 +26,17 @@ class PostWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: (() => Get.toNamed(AppRouter.otherUserProfileRoute)),
+                onTap: (() => {
+                      if (postObject.user?.id !=
+                              homeScreenController.authUser?.id &&
+                          postObject.user?.id != null)
+                        {
+                          Get.toNamed(AppRouter.otherUserProfileRoute,
+                              parameters: {
+                                'id': postObject.user!.id.toString()
+                              })
+                        }
+                    }),
                 child: Row(
                   children: [
                     AvatarWidget(

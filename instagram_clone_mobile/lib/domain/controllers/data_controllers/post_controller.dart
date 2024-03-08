@@ -16,11 +16,16 @@ class PostController extends GetxController {
   final DatabaseServices _databaseServices = DatabaseServices();
   final AuthController _authController = Get.find();
 
-  Future<void> loadPosts({required int currentPage}) async {
-    final List<PostObject?> newPosts =
-        await _databaseServices.getPosts(currentPage: currentPage);
+  Future<void> loadPosts({required int currentPage, int? userId}) async {
+    List<PostObject?> newPosts = [];
+    if (userId != null) {
+      newPosts = await _databaseServices.getUsersPosts(
+          currentPage: currentPage, id: userId);
+    } else {
+      newPosts = await _databaseServices.getPosts(currentPage: currentPage);
+    }
     for (var post in newPosts) {
-      if (_postObjectList.any((element) => element?.id != post?.id)) {
+      if (!_postObjectList.any((element) => element!.id == post!.id)) {
         _postObjectList.add(post);
       }
     }
@@ -41,5 +46,9 @@ class PostController extends GetxController {
       update();
     }
     return result;
+  }
+
+  void clearList() {
+    _postObjectList.value = [];
   }
 }

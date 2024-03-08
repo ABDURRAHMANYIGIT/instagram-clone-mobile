@@ -28,9 +28,14 @@ class HomeScreenController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    postController.clearList();
+    super.onClose();
+  }
+
   Future<void> loadPosts() async {
     _inProgress.value = true;
-    update();
     await postController.loadPosts(currentPage: currentPage);
     _currentPage.value++;
     _inProgress.value = false;

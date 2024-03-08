@@ -300,4 +300,59 @@ class Api implements BaseServices {
     }
     return result;
   }
+
+  @override
+  Future<List<PostObject?>> getUsersPosts(
+      {required int id, required int currentPage}) async {
+    String? token;
+    token = await SharedPreference().getToken();
+    final List<PostObject?> result = [];
+    if (token != null) {
+      try {
+        final http.Response response = await http.get(
+          Uri.parse('$domain/posts/get-users-posts/$id'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          for (var object in body['data']) {
+            result.add(PostObject.fromJson(object));
+          }
+        } else {
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return result;
+  }
+
+  @override
+  Future<UserObject?> getUserById({required int userId}) async {
+    String? token;
+    token = await SharedPreference().getToken();
+
+    if (token != null) {
+      try {
+        final http.Response response = await http.get(
+          Uri.parse('$domain/user/$userId'),
+          headers: _Headers().getHeaderWithAuthToken(token),
+        );
+        final dynamic body = convert.jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          return UserObject.fromJson(
+            body['data'] as Map<String, dynamic>,
+          );
+        } else {
+          await SharedPreference().setToken(null);
+          await SharedPreference().setUserId(null);
+          Tools().handleError(body: body as Map<String, dynamic>);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return null;
+  }
 }

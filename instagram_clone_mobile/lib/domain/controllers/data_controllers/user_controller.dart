@@ -20,4 +20,8 @@ class UserController extends GetxController {
   Future<List<PostObject>> getMyPosts() async {
     return await _databaseServices.getMyPosts();
   }
+
+  Future<UserObject?> getUserById({required int userId}) async {
+    return await _databaseServices.getUserById(userId: userId);
+  }
 }

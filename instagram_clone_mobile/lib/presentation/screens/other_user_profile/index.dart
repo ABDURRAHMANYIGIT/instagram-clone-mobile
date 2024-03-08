@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/profile_screen_controller.dart';
+import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/other_user_profile_screen_controller.dart';
 import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/avatar_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/profile_number_information_widget.dart';
@@ -18,8 +18,9 @@ class OtherUserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileScreenController profileScreenController =
-        Get.put(ProfileScreenController());
+    final OtherUserProfileScreenController otherUserProfileScreenController =
+        Get.put(
+            OtherUserProfileScreenController(int.parse(Get.parameters['id']!)));
     return MainLayout(
       content: SafeArea(
         child: Column(
@@ -32,8 +33,9 @@ class OtherUserProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AvatarWidget(
-                        imagePath:
-                            profileScreenController.user?.profilePhoto ?? '',
+                        imagePath: otherUserProfileScreenController
+                                .user?.profilePhoto ??
+                            '',
                         height: Get.width * 0.2,
                         width: Get.width * 0.2,
                       ),
@@ -41,21 +43,23 @@ class OtherUserProfileScreen extends StatelessWidget {
                         return Row(
                           children: [
                             ProfileNumberInformation(
-                                number: profileScreenController.postList.length,
+                                number: otherUserProfileScreenController
+                                    .postList.length,
                                 title: 'Posts'),
                             GestureDetector(
-                              onTap: profileScreenController.showFollowersPopup,
+                              onTap: otherUserProfileScreenController
+                                  .showFollowersPopup,
                               child: ProfileNumberInformation(
-                                  number: profileScreenController
+                                  number: otherUserProfileScreenController
                                           .user?.followers.length ??
                                       0,
                                   title: 'Followers'),
                             ),
                             GestureDetector(
-                              onTap:
-                                  profileScreenController.showFollowingsPopup,
+                              onTap: otherUserProfileScreenController
+                                  .showFollowingsPopup,
                               child: ProfileNumberInformation(
-                                  number: profileScreenController
+                                  number: otherUserProfileScreenController
                                           .user?.followings.length ??
                                       0,
                                   title: 'Followings'),
@@ -70,7 +74,7 @@ class OtherUserProfileScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomText(
-                        profileScreenController.user?.name ?? '',
+                        otherUserProfileScreenController.user?.name ?? '',
                         style: AppTextStyle.bodyMedium(color: AppColors.black),
                       ),
                     ),
@@ -78,24 +82,25 @@ class OtherUserProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Obx(() => profileScreenController.postList.isNotEmpty
+            Obx(() => otherUserProfileScreenController.postList.isNotEmpty
                 ? GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                     ),
                     shrinkWrap: true,
-                    itemCount: profileScreenController.postList.length,
+                    itemCount: otherUserProfileScreenController.postList.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () => Get.toNamed(AppRouter.postListingRoute,
-                            arguments: profileScreenController.postList),
+                            arguments:
+                                otherUserProfileScreenController.postList),
                         child: Hero(
                           tag:
-                              'post-${profileScreenController.postList[index].id}',
+                              'post-${otherUserProfileScreenController.postList[index]!.id}',
                           child: SmallPostWidget(
-                              postObject:
-                                  profileScreenController.postList[index]),
+                              postObject: otherUserProfileScreenController
+                                  .postList[index]!),
                         ),
                       );
                     })

@@ -74,4 +74,15 @@ class DatabaseServices implements BaseServices {
   Future<List<PostObject>> getMyPosts() {
     return api.getMyPosts();
   }
+
+  @override
+  Future<List<PostObject?>> getUsersPosts(
+      {required int id, required int currentPage}) {
+    return api.getUsersPosts(id: id, currentPage: currentPage);
+  }
+
+  @override
+  Future<UserObject?> getUserById({required int userId}) {
+    return api.getUserById(userId: userId);
+  }
 }
