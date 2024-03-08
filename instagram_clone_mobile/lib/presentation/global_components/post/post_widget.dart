@@ -1,8 +1,10 @@
 import 'package:float_column/float_column.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/home_screen_controller.dart';
+import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/avatar_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/image/image_asset.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
@@ -21,16 +23,24 @@ class PostWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AvatarWidget(imagePath: postObject.user?.profilePhoto ?? ''),
-              const SizedBox(
-                width: 12,
+              GestureDetector(
+                onTap: (() => Get.toNamed(AppRouter.otherUserProfileRoute)),
+                child: Row(
+                  children: [
+                    AvatarWidget(
+                        imagePath: postObject.user?.profilePhoto ?? ''),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    CustomText(
+                      postObject.user?.name ?? '',
+                      style: AppTextStyle.bodyMedium(color: AppColors.black),
+                    ),
+                  ],
+                ),
               ),
-              CustomText(
-                postObject.user?.name ?? '',
-                style: AppTextStyle.bodyMedium(color: AppColors.black),
-              ),
-              const Spacer(),
               if (postObject.user?.id != homeScreenController.authUser?.id)
                 Obx(() {
                   return GestureDetector(

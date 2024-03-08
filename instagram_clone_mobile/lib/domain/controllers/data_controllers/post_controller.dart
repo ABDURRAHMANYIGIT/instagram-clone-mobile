@@ -17,8 +17,13 @@ class PostController extends GetxController {
   final AuthController _authController = Get.find();
 
   Future<void> loadPosts({required int currentPage}) async {
-    _postObjectList.value =
+    final List<PostObject?> newPosts =
         await _databaseServices.getPosts(currentPage: currentPage);
+    for (var post in newPosts) {
+      if (_postObjectList.any((element) => element?.id != post?.id)) {
+        _postObjectList.add(post);
+      }
+    }
     _postObjectList.refresh();
     update();
   }
