@@ -28,23 +28,36 @@ class HomeScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: homeScreenController.postObjectList.length,
                       itemBuilder: ((context, index) {
+                        final post = homeScreenController.postObjectList[index];
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: PostWidget(
-                            postObject:
-                                homeScreenController.postObjectList[index]!,
-                          ),
-                        );
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: post != null
+                                ? Obx(() {
+                                    return PostWidget(
+                                      authUser: homeScreenController.authUser,
+                                      followUser: () => homeScreenController
+                                          .followUser(userId: post.user?.id),
+                                      likePost: () => homeScreenController
+                                          .likePost(id: post.id),
+                                      postObject: post,
+                                      likedPostIds:
+                                          homeScreenController.likedPostIds,
+                                    );
+                                  })
+                                : const SizedBox());
                       }),
                     ),
                   ),
                   Obx(() {
                     if (homeScreenController.inProgress) {
-                      return const InProgressWidget();
+                      return const Center(child: InProgressWidget());
                     } else {
                       return const SizedBox.shrink();
                     }
                   }),
+                  const SizedBox(
+                    height: kBottomNavigationBarHeight * 2,
+                  )
                 ],
               ),
             )

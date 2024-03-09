@@ -16,13 +16,18 @@ class OtherUserProfileScreenController extends GetxController {
   List<PostObject?> get postList => _postList;
   final RxInt _currentPage = RxInt(1);
   int get currentPage => _currentPage.value;
+  final RxBool _isLoading = RxBool(false);
+  bool get isLoading => _isLoading.value;
 
   @override
   Future<void> onInit() async {
+    _isLoading.value = true;
     _user.value = await _userController.getUserById(userId: userId);
+    _postController.clearList();
     await _postController.loadPosts(
         currentPage: _currentPage.value, userId: userId);
     _postList.value = _postController.postObjectList;
+    _isLoading.value = false;
     super.onInit();
   }
 

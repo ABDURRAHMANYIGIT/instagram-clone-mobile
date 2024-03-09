@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/other_user_profile_screen_controller.dart';
 import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/avatar_widget.dart';
+import 'package:instagram_clone_mobile/presentation/global_components/in_progress_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/profile_number_information_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
 import 'package:instagram_clone_mobile/presentation/layouts/main_layout.dart';
@@ -23,90 +26,107 @@ class OtherUserProfileScreen extends StatelessWidget {
             OtherUserProfileScreenController(int.parse(Get.parameters['id']!)));
     return MainLayout(
       content: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Obx(() {
+          return SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: otherUserProfileScreenController.isLoading
+                ? SizedBox(
+                    height: Get.height,
+                    child: Center(child: InProgressWidget()))
+                : Column(
                     children: [
-                      AvatarWidget(
-                        imagePath: otherUserProfileScreenController
-                                .user?.profilePhoto ??
-                            '',
-                        height: Get.width * 0.2,
-                        width: Get.width * 0.2,
-                      ),
-                      Obx(() {
-                        return Row(
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
                           children: [
-                            ProfileNumberInformation(
-                                number: otherUserProfileScreenController
-                                    .postList.length,
-                                title: 'Posts'),
-                            GestureDetector(
-                              onTap: otherUserProfileScreenController
-                                  .showFollowersPopup,
-                              child: ProfileNumberInformation(
-                                  number: otherUserProfileScreenController
-                                          .user?.followers.length ??
-                                      0,
-                                  title: 'Followers'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                AvatarWidget(
+                                  imagePath: otherUserProfileScreenController
+                                          .user?.profilePhoto ??
+                                      '',
+                                  height: Get.width * 0.2,
+                                  width: Get.width * 0.2,
+                                ),
+                                Row(
+                                  children: [
+                                    ProfileNumberInformation(
+                                        number: otherUserProfileScreenController
+                                            .postList.length,
+                                        title: 'Posts'),
+                                    GestureDetector(
+                                      onTap: otherUserProfileScreenController
+                                          .showFollowersPopup,
+                                      child: ProfileNumberInformation(
+                                          number:
+                                              otherUserProfileScreenController
+                                                      .user?.followers.length ??
+                                                  0,
+                                          title: 'Followers'),
+                                    ),
+                                    GestureDetector(
+                                      onTap: otherUserProfileScreenController
+                                          .showFollowingsPopup,
+                                      child: ProfileNumberInformation(
+                                          number:
+                                              otherUserProfileScreenController
+                                                      .user
+                                                      ?.followings
+                                                      .length ??
+                                                  0,
+                                          title: 'Followings'),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                            GestureDetector(
-                              onTap: otherUserProfileScreenController
-                                  .showFollowingsPopup,
-                              child: ProfileNumberInformation(
-                                  number: otherUserProfileScreenController
-                                          .user?.followings.length ??
-                                      0,
-                                  title: 'Followings'),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomText(
+                                  otherUserProfileScreenController.user?.name ??
+                                      '',
+                                  style: AppTextStyle.bodyMedium(
+                                      color: AppColors.black),
+                                ),
+                              ),
                             ),
                           ],
-                        );
-                      })
+                        ),
+                      ),
+                      otherUserProfileScreenController.postList.isNotEmpty
+                          ? GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                              ),
+                              shrinkWrap: true,
+                              itemCount: otherUserProfileScreenController
+                                  .postList.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () => Get.toNamed(
+                                      AppRouter.postListingRoute,
+                                      arguments:
+                                          otherUserProfileScreenController
+                                              .postList),
+                                  child: Hero(
+                                    tag:
+                                        'post-${otherUserProfileScreenController.postList[index]!.id}',
+                                    child: SmallPostWidget(
+                                        postObject:
+                                            otherUserProfileScreenController
+                                                .postList[index]!),
+                                  ),
+                                );
+                              })
+                          : Container()
                     ],
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomText(
-                        otherUserProfileScreenController.user?.name ?? '',
-                        style: AppTextStyle.bodyMedium(color: AppColors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Obx(() => otherUserProfileScreenController.postList.isNotEmpty
-                ? GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: otherUserProfileScreenController.postList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(AppRouter.postListingRoute,
-                            arguments:
-                                otherUserProfileScreenController.postList),
-                        child: Hero(
-                          tag:
-                              'post-${otherUserProfileScreenController.postList[index]!.id}',
-                          child: SmallPostWidget(
-                              postObject: otherUserProfileScreenController
-                                  .postList[index]!),
-                        ),
-                      );
-                    })
-                : Container())
-          ],
-        ),
+          );
+        }),
       ),
     );
   }

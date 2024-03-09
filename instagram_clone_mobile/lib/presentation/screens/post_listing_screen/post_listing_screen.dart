@@ -11,27 +11,36 @@ class PostListingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PostListingScreenController postListingScreenController =
-        Get.put(PostListingScreenController(Get.arguments as List<PostObject>));
+        Get.put(PostListingScreenController());
+    final postList = Get.arguments as List<PostObject?>;
     return MainLayout(
-      content: postListingScreenController.postList.isNotEmpty
-          ? RefreshIndicator(
-              onRefresh: postListingScreenController.loadPosts,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: postListingScreenController.postList.length,
-                itemBuilder: ((context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Hero(
-                      tag:
-                          'post-${postListingScreenController.postList[index].id}',
-                      child: PostWidget(
-                        postObject: postListingScreenController.postList[index],
-                      ),
-                    ),
-                  );
-                }),
-              ),
+      content: postList.isNotEmpty
+          ? ListView.builder(
+              shrinkWrap: true,
+              itemCount: postList.length,
+              itemBuilder: ((context, index) {
+                final post = postList[index];
+                return post != null
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Hero(
+                          tag: 'post-${post.id}',
+                          child: Obx(() {
+                            return PostWidget(
+                              followUser: () => postListingScreenController
+                                  .followUser(userId: post.user?.id),
+                              likePost: () => postListingScreenController
+                                  .likePost(id: post.id),
+                              likedPostIds:
+                                  postListingScreenController.likedPostIds,
+                              authUser: postListingScreenController.authUser,
+                              postObject: post,
+                            );
+                          }),
+                        ),
+                      )
+                    : const SizedBox();
+              }),
             )
           : Container(),
     );

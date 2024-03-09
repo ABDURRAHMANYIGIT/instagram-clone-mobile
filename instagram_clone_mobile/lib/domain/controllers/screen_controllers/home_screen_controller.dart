@@ -18,6 +18,7 @@ class HomeScreenController extends GetxController {
   bool get inProgress => _inProgress.value;
   @override
   Future<void> onInit() async {
+    postController.clearList();
     await loadPosts();
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
@@ -26,12 +27,6 @@ class HomeScreenController extends GetxController {
       }
     });
     super.onInit();
-  }
-
-  @override
-  void onClose() {
-    postController.clearList();
-    super.onClose();
   }
 
   Future<void> loadPosts() async {

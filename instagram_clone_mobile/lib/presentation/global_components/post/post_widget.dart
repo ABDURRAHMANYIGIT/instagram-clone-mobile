@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/models/post_object.dart';
-import 'package:instagram_clone_mobile/domain/controllers/screen_controllers/home_screen_controller.dart';
+import 'package:instagram_clone_mobile/data/models/user_object.dart';
 import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/avatar_widget.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/image/image_asset.dart';
@@ -13,11 +13,20 @@ import 'package:instagram_clone_mobile/resources/styles/colors.dart';
 import 'package:instagram_clone_mobile/resources/styles/text_styles.dart';
 
 class PostWidget extends StatelessWidget {
-  const PostWidget({super.key, required this.postObject});
+  const PostWidget(
+      {super.key,
+      required this.postObject,
+      required this.authUser,
+      required this.followUser,
+      required this.likePost,
+      required this.likedPostIds});
   final PostObject postObject;
+  final UserObject? authUser;
+  final List<int?> likedPostIds;
+  final void Function() followUser;
+  final void Function() likePost;
   @override
   Widget build(BuildContext context) {
-    final HomeScreenController homeScreenController = Get.find();
     return Column(
       children: <Widget>[
         Padding(
@@ -27,8 +36,7 @@ class PostWidget extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: (() => {
-                      if (postObject.user?.id !=
-                              homeScreenController.authUser?.id &&
+                      if (postObject.user?.id != authUser?.id &&
                           postObject.user?.id != null)
                         {
                           Get.toNamed(AppRouter.otherUserProfileRoute,
@@ -51,29 +59,24 @@ class PostWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              if (postObject.user?.id != homeScreenController.authUser?.id)
-                Obx(() {
-                  return GestureDetector(
-                    onTap: () => homeScreenController.followUser(
-                        userId: postObject.user?.id),
-                    child: CustomText(
-                      homeScreenController.authUser != null &&
-                              homeScreenController.authUser!.followings.any(
-                                  (element) =>
-                                      element.id == postObject.user?.id)
-                          ? 'Unfollow'
-                          : 'Follow',
-                      style: AppTextStyle.bodyMedium(color: AppColors.blue),
-                    ),
-                  );
-                }),
+              if (postObject.user?.id != authUser?.id)
+                GestureDetector(
+                  onTap: followUser,
+                  child: CustomText(
+                    authUser != null &&
+                            authUser!.followings.any(
+                                (element) => element.id == postObject.user?.id)
+                        ? 'Unfollow'
+                        : 'Follow',
+                    style: AppTextStyle.bodyMedium(color: AppColors.blue),
+                  ),
+                ),
             ],
           ),
         ),
         postObject.image != null
             ? GestureDetector(
-                onDoubleTap: () =>
-                    homeScreenController.likePost(id: postObject.id),
+                onDoubleTap: () => likePost(),
                 child: ImageAsset(
                   postObject.image!,
                   width: Get.width,
@@ -98,11 +101,9 @@ class PostWidget extends StatelessWidget {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: (() =>
-                          homeScreenController.likePost(id: postObject.id)),
+                      onTap: likePost,
                       child: ImageAsset(
-                        homeScreenController.likedPostIds
-                                .contains(postObject.id)
+                        likedPostIds.contains(postObject.id)
                             ? AppIcons.likeFilled
                             : AppIcons.like,
                         width: 20,
