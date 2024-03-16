@@ -65,8 +65,9 @@ class AppRouter {
       page: () => const PostListingScreen(),
     ),
     GetPage(
-      name: otherUserProfileRoute,
-      page: () => const OtherUserProfileScreen(),
-    ),
+        name: otherUserProfileRoute,
+        page: () => const OtherUserProfileScreen(),
+        transition: Transition.rightToLeft,
+        transitionDuration: const Duration(milliseconds: 100)),
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone_mobile/data/models/user_object.dart';
+import 'package:instagram_clone_mobile/domain/router/router.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/common_dialog.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/small_user_information.dart';
 import 'package:instagram_clone_mobile/presentation/global_components/text/custom_text.dart';
@@ -22,7 +23,14 @@ class ShowPopups {
               shrinkWrap: true,
               itemCount: user.followings.length,
               itemBuilder: ((context, index) {
-                return SmallUserInformation(userObject: user.followings[index]);
+                final userObj = user.followings[index];
+                return GestureDetector(
+                    onTap: () => {
+                          Get.back(),
+                          Get.toNamed(AppRouter.otherUserProfileRoute,
+                              parameters: {'id': userObj.id.toString()})
+                        },
+                    child: SmallUserInformation(userObject: userObj));
               })),
         ),
         onConfirm: () {
@@ -45,7 +53,15 @@ class ShowPopups {
               shrinkWrap: true,
               itemCount: user.followers.length,
               itemBuilder: ((context, index) {
-                return SmallUserInformation(userObject: user.followers[index]);
+                final userObj = user.followings[index];
+
+                return GestureDetector(
+                    onTap: () => {
+                          Get.back(),
+                          Get.toNamed(AppRouter.otherUserProfileRoute,
+                              parameters: {'id': userObj.id.toString()})
+                        },
+                    child: SmallUserInformation(userObject: userObj));
               })),
         ),
         onConfirm: () {
