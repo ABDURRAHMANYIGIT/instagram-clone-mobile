@@ -171,7 +171,7 @@ class Api implements BaseServices {
     if (token != null) {
       try {
         final http.Response response = await http.get(
-          Uri.parse('$domain/user/get-liked-post-ids'),
+          Uri.parse('$domain/get-liked-post-ids'),
           headers: _Headers().getHeaderWithAuthToken(token),
         );
         final dynamic body = convert.jsonDecode(response.body);
@@ -195,7 +195,7 @@ class Api implements BaseServices {
     if (token != null) {
       try {
         final http.Response response = await http.get(
-          Uri.parse('$domain/user/get-liked-posts?$currentPage'),
+          Uri.parse('$domain/get-liked-posts?$currentPage'),
           headers: _Headers().getHeaderWithAuthToken(token),
         );
         final dynamic body = convert.jsonDecode(response.body);
