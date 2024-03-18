@@ -31,6 +31,13 @@ class OtherUserProfileScreenController extends GetxController {
     super.onInit();
   }
 
+  @override
+  Future<void> onClose() async {
+    _postController.clearList();
+    await _postController.loadPosts(currentPage: _currentPage.value);
+    super.onClose();
+  }
+
   void showFollowingsPopup() {
     if (user != null) {
       ShowPopups().showFollowingsPopup(user!);
